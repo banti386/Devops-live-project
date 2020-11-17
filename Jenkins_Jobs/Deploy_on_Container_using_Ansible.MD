@@ -4,8 +4,8 @@
 ### Pre-requisites
 
 1. Jenkins server 
-1. Docker-host server 
-1. Ansible server
+1. Docker-host server ( created using terraform )
+1. Ansible server     ( created using terraform )
 1. `Dockerfile` under *`/opt/docker`* on Ansible server
    ```sh 
    # Pull tomcat latest image from dockerhub 
@@ -51,7 +51,7 @@ Enable connection between Ansible-control-node and Jenkins
 ### Steps to create "Deploy_on_Container_using_ansible" Jenkin job
 #### From Jenkins home page select "New Item"
    - Enter an item name: `Deploy_on_Container_using_ansible`
-     - Copy from: `Deploy_on_Container`
+     - Create Jenkins job, Fill the following details
      
    - *Source Code Management:*
       - Repository: `https://github.com/banti386/devops_build.git`
