@@ -6,19 +6,17 @@
 1. Jenkins server 
 1. Docker-host server 
 1. Ansible server
-1. `Dockerfile` under *`/opt/docker`* on Ansible server
+1. `Dockerfile` under *`/opt/docker`* on Ansible server **[Get Help Here]()**
+   ```sh 
+   # Pull tomcat latest image from dockerhub 
+   From tomcat
+   # Maintainer
+   MAINTAINER "AR Shankar" 
 
-# Pull tomcat latest image from dockerhub 
-From tomcat:latest
-
-# Maintainer
-MAINTAINER "AR Shankar" 
-
-# copy war file on to container 
-COPY ./webapp.war /usr/local/tomcat/webapps
-
-1. Create `create-docker-image.yml` unser *`/opt/docker`* on Ansible server
-
+   # copy war file on to container 
+   COPY ./webapp.war /usr/local/tomcat/webapps
+1. Create `create-docker-image.yml` unser *`/opt/docker`* on Ansible server **[Get Help Here]()**
+   ```sh
    ---
    - hosts: all
      #ansadmin doesn't need root access to create an image
@@ -29,9 +27,17 @@ COPY ./webapp.war /usr/local/tomcat/webapps
        command: "docker build -t simple-devops-image ." 
        args:
          chdir: /opt/docker
+   ```
+1. Create `create-docker-image.yml` under *`/opt/docker`* on Ansible server **[Get Help Here]()**
+   ```ssh
+   ---
+   - hosts: all
+     become: ture
 
+     tasks:
      - name: creating docker image using docker command
        command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
+   ```
 
 ### Integration between Ansible-control-node and Jenkins
 
