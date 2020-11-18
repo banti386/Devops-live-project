@@ -10,7 +10,8 @@ resource "aws_instance" "myec2" {
      inline = [
        "sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm",
        "sudo yum install ansible -y",
-       "sudo yum install docker -y"
+       "sudo yum install docker -y",
+       "sudo service docker start"
         
      ]
 
@@ -37,7 +38,7 @@ resource "aws_instance" "myec3" {
    provisioner "remote-exec" {
      inline = [
        "sudo yum install docker -y",
-       "sudo useradd ansadmin"
+       "sudo service docker start"
         
      ]
 
