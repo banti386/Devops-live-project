@@ -4,7 +4,7 @@ Steps to follow
 1. Launch an ec2 instance in AWS and install Jenkins on that. [Follow the Jenkins slide for jenkins installation] Also set the hostname as jenkins-host.
 
 
-2. Install terraform inside your jenkins host and run the terraform code located inside terraform directory. [note that: change your access key and secret_key inside providers.tf and change your key_name inside main.tf ]
+2. Install terraform inside your jenkins host and run the terraform code located inside terraform directory. [note that: change your access key and secret_key inside providers.tf and change your key_name inside main.tf ] terraform script will create two node : Ansible_server and Docker_host 
 
 
 3. Now go to the Ansible_server node and Docker_host node do the following setup.
@@ -29,11 +29,18 @@ sudo su - ansadmin
 ssh-keygen
 
 
-D. Copy keys onto Docker_host (on Ansible_server)
+D. Copy keys onto Docker_host (on Ansible_server node)
 
 ssh-copy-id ansadmin@<Docker_host-ip>
 
 
-E. run on both host
+E. Run on both host
 
 usermod -aG docker ansadmin
+
+F. Run on Ansible_server node 
+
+mkdir -p /opt/docker
+chown -R ansadmin:ansadmin /opt/docker
+
+
