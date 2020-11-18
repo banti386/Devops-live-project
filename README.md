@@ -44,3 +44,8 @@ mkdir -p /opt/docker
 chown -R ansadmin:ansadmin /opt/docker
 
 
+4. Follow the instruction inside Deploy_on_Container_using_Ansible.MD ( located under Jenkins_Jobs ).
+
+
+
+
