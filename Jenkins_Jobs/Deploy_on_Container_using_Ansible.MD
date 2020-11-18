@@ -6,7 +6,7 @@
 1. Jenkins server 
 1. Docker-host server ( created using terraform )
 1. Ansible server     ( created using terraform )
-1. `Dockerfile` under *`/opt/docker`* on Ansible server
+1. Create a `Dockerfile` under *`/opt/docker`* on Ansible server
    ```sh 
    # Pull tomcat latest image from dockerhub 
    From tomcat
