@@ -4,9 +4,9 @@
 ### Pre-requisites
 
 1. Jenkins server 
-1. Docker-host server 
-1. Ansible server
-1. `Dockerfile` under *`/opt/docker`* on Ansible server **[Get Help Here]()**
+1. Docker-host server ( created using terraform )
+1. Ansible server     ( created using terraform )
+1. Create a `Dockerfile` under *`/opt/docker`* on Ansible server
    ```sh 
    # Pull tomcat latest image from dockerhub 
    From tomcat
@@ -15,7 +15,7 @@
 
    # copy war file on to container 
    COPY ./webapp.war /usr/local/tomcat/webapps
-1. Create `create-docker-image.yml` unser *`/opt/docker`* on Ansible server **[Get Help Here]()**
+1. Create `create-docker-image.yml` under *`/opt/docker`* on Ansible server and make an entry of private ip of Docker_host inside /opt/docker/host file on ansible_server.
    ```sh
    ---
    - hosts: all
@@ -27,14 +27,6 @@
        command: "docker build -t simple-devops-image ." 
        args:
          chdir: /opt/docker
-   ```
-1. Create `create-docker-image.yml` under *`/opt/docker`* on Ansible server **[Get Help Here]()**
-   ```ssh
-   ---
-   - hosts: all
-     become: ture
-
-     tasks:
      - name: creating docker image using docker command
        command: docker run -d --name simple-devops-container -p 8080:8080 simple-devops-image
    ```
@@ -59,7 +51,7 @@ Enable connection between Ansible-control-node and Jenkins
 ### Steps to create "Deploy_on_Container_using_ansible" Jenkin job
 #### From Jenkins home page select "New Item"
    - Enter an item name: `Deploy_on_Container_using_ansible`
-     - Copy from: `Deploy_on_Container`
+     - Create Jenkins job, Fill the following details
      
    - *Source Code Management:*
       - Repository: `https://github.com/banti386/devops_build.git`
@@ -84,3 +76,4 @@ Enable connection between Ansible-control-node and Jenkins
                 ```
 
 Save and run the job now.
+
