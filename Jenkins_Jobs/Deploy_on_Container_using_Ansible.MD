@@ -15,7 +15,7 @@
 
    # copy war file on to container 
    COPY ./webapp.war /usr/local/tomcat/webapps
-1. Create `create-docker-image.yml` unser *`/opt/docker`* on Ansible server 
+1. Create `create-docker-image.yml` under *`/opt/docker`* on Ansible server and make an entry of private ip of Docker_host inside /opt/docker/host file on ansible_server.
    ```sh
    ---
    - hosts: all
