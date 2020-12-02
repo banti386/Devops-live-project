@@ -13,6 +13,7 @@ resource "aws_instance" "myec2" {
          echo [all] >> inventory;
          echo ${aws_instance.myec2.public_ip} >> inventory;
          sleep 120;
+         export ANSIBLE_HOST_KEY_CHECKING=False;
          ansible-playbook  -v -u centos --private-key=./terraform.pem playbook.yml -i inventory;
 EOT
       }
