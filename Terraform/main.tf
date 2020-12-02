@@ -1,31 +1,6 @@
-resource "aws_instance" "myec2" {
-   ami = "ami-0affd4508a5d2481b"
-   instance_type = "t2.nano"
-   key_name = "terraform"
-   tags          = {
-     Name        = "Ansible_server"
-}
-   provisioner "remote-exec" {
-     inline = [
-       "sudo yum -y install epel*",
-       "sudo yum install ansible -y",
-       "sudo yum install docker -y",
-       "sudo service docker start"
-
-     ]
-
-   connection {
-     type = "ssh"
-     user = "centos"
-     private_key = file("./terraform.pem")
-     host = self.public_ip
-   }
-}
-}
-
 # docker-host
 
-resource "aws_instance" "myec3" {
+resource "aws_instance" "myec2" {
    ami = "ami-0affd4508a5d2481b"
    instance_type = "t2.nano"
    key_name = "terraform"
@@ -33,19 +8,15 @@ resource "aws_instance" "myec3" {
      Name        = "Docker-host"
 }
 
-   provisioner "remote-exec" {
-     inline = [
-       "sudo yum install docker -y",
-       "sudo service docker start"
-
-     ]
-
-   connection {
-     type = "ssh"
-     user = "centos"
-     private_key = file("./terraform.pem")
-     host = self.public_ip
+   provisioner "local-exec" {
+      command = <<EOT
+         echo [all] >> inventory;
+         echo ${aws_instance.myec2.public_ip} >> inventory;
+         sleep 120;
+         ansible-playbook  -v -u centos --private-key=./terraform.pem playbook.yml -i inventory;
+EOT
+      }
    }
-}
-   }
+
+
 
